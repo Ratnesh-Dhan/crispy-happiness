@@ -1,2 +1,5 @@
 *.png
 *.pkl
+__pycache__/
+venv/
+dataset/
