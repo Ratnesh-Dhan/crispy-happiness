@@ -7,11 +7,12 @@ from sklearn.metrics import mean_absolute_error, r2_score
 import matplotlib.pyplot as plt
 import os, joblib, sys, numpy as np
 
-df = pd.read_excel("/mnt/d/DATASETS/Noamundi_Data.xlsx")
+# df = pd.read_excel("/mnt/d/DATASETS/Noamundi_Data.xlsx")
+df = pd.read_excel("/mnt/d/Codes/Regression/double_model/results/without_Fe/Fe_inference_results.xlsx")
 model_path = "./models"
 results_path = "./results"
 
-X = df[["T1","T2","T3","T4","AvgTemp","Fe%"]]
+X = df[["T1","T2","T3","T4","AvgTemp","Predicted_Fe%"]]
 targets = ["SiO2%","Al2O3%"]
 
 X_train, X_test, y_train, y_test = train_test_split(
@@ -88,7 +89,7 @@ with open(os.path.join(results_path, "silica_alumina_errors.txt"), "w") as f:
 
 print(f"{results_path}/Saved silica_alumina_errors.txt")
 
-sys.exit(0)
+# sys.exit(0)
 
 for col, model in models.items():
     path = os.path.join(model_path, f"xgb_{col.replace('%', '')}.pkl")

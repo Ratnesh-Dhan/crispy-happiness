@@ -66,7 +66,8 @@ for col in target:
 # save to txt
 with open(os.path.join(results_path, "model_errors.txt"), "w") as f:
     for col in target:
-        f.write(f"===== {col} Errors =====\n")
+        f.write(f"===== {col} Errors in % =====\n")
+        f.write("======= abs(pred - actual) / actual =======\n")
         for e in errors[col]:
             f.write(f"{e}\n")
         f.write("\n")
