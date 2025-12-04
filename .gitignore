@@ -3,6 +3,7 @@
 *.xlsx
 *.csv
 *.txt
+*.docx
 __pycache__/
 venv/
 dataset/
