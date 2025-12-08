@@ -7,13 +7,13 @@ from matplotlib import pyplot as plt
 import os, joblib, numpy as np
 
 df = pd.read_excel("/mnt/d/Codes/Regression/double_model/results/without_Fe/Alumina_inference_results.xlsx")
-model_path = "./models/Final_Silica"
+model_path = "./models/Final_Alumina"
 os.makedirs(model_path, exist_ok=True)
-results_path = './results/Final_Silica'
+results_path = './results/Final_Alumina'
 os.makedirs(results_path, exist_ok=True)
 
-X = df[["T1", "T2", "T3", "T4", "AvgTemp", "Predicted_Fe%", "Predicted_Alumina%"]]
-target = ["SiO2%"]
+X = df[["T1", "T2", "T3", "T4", "AvgTemp", "Fe%"]]
+target = ["Al2O3%"]
 
 X_train, X_test, y_train, y_test = train_test_split(
     X, df[target], test_size=0.2, random_state=42

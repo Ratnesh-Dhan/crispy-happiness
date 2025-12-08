@@ -1,19 +1,19 @@
 import pandas as pd
 from xgboost import XGBRegressor
-from sklearn.ensemble import RandomForestRegressor, ExtraTreesRegressor
+from sklearn.ensemble import ExtraTreesRegressor
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import mean_absolute_error, r2_score
 from matplotlib import pyplot as plt
 import os, joblib, numpy as np
 
-df = pd.read_excel("/mnt/d/Codes/Regression/double_model/results/without_Fe/Alumina_inference_results.xlsx")
-model_path = "./models/Final_Silica"
+df = pd.read_excel("/mnt/d/DATASETS/noamundi_split_dataset/training_dataset.xlsx")
+model_path = "./models/Fe_preds"
 os.makedirs(model_path, exist_ok=True)
-results_path = './results/Final_Silica'
+results_path = './results/without_Fe'
 os.makedirs(results_path, exist_ok=True)
 
-X = df[["T1", "T2", "T3", "T4", "AvgTemp", "Predicted_Fe%", "Predicted_Alumina%"]]
-target = ["SiO2%"]
+X = df[["T1", "T2", "T3", "T4", "AvgTemp"]]
+target = ["Fe%"]
 
 X_train, X_test, y_train, y_test = train_test_split(
     X, df[target], test_size=0.2, random_state=42
@@ -22,34 +22,11 @@ X_train, X_test, y_train, y_test = train_test_split(
 models = {}
 preds = {}
 
-## others
-# from lightgbm import LGBMRegressor
-# model = LGBMRegressor(
-#     n_estimators=500,
-#     learning_rate=0.05,
-#     num_leaves=31
-# )
-
-# from sklearn.ensemble import ExtraTreesRegressor
-# model = ExtraTreesRegressor(
-#     n_estimators=600,
-#     max_depth=20
-# )
-
-
 for col in target:
-    model = XGBRegressor(
-        n_estimators=400,
-        learning_rate=0.05,
-        max_depth=5, 
-        subsample=0.9,
-        colsample_bytree=0.9,
-        objective="reg:squarederror"
+    model = ExtraTreesRegressor(
+        n_estimators=600,
+        max_depth=20
     )
-    # model = ExtraTreesRegressor(
-    #     n_estimators=600,
-    #     max_depth=20
-    # )
     model.fit(X_train, y_train[col])
     models[col] = model
     preds[col] = model.predict(X_test)

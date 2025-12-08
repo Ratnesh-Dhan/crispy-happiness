@@ -12,7 +12,7 @@ os.makedirs(model_path, exist_ok=True)
 results_path = './results/Final_Silica'
 os.makedirs(results_path, exist_ok=True)
 
-X = df[["T1", "T2", "T3", "T4", "AvgTemp", "Predicted_Fe%", "Predicted_Alumina%"]]
+X = df[["T1", "T2", "T3", "T4", "AvgTemp", "Fe%", "Al2O3%"]]
 target = ["SiO2%"]
 
 X_train, X_test, y_train, y_test = train_test_split(
